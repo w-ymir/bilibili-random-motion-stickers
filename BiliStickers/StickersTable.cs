@@ -8,8 +8,9 @@ namespace BiliStickers
     class StickersTable
     {
         const string ReadmeFilePath = "../README.md";
-        const string ImageDirPath = "gif";  // Note: It is different from BilibiliJson.ImageDirPath
+        const string ImageDirPath = "./gif";  // Note: It is different from BilibiliJson.ImageDirPath
         const string MarkdownTitle = "## Stickers";
+        const string TableHeader = "| # | Title |\n|---|-------|";
 
         StringBuilder stTable = new StringBuilder("\n");
 
@@ -18,8 +19,8 @@ namespace BiliStickers
             foreach (var sticker in stickers)
             {
                 string fileName = String.Format("{0}-{1}{2}", sticker.Id, sticker.Title, sticker.Icon.Substring(sticker.Icon.LastIndexOf('.')));
-                string curFilePath = String.Format("{0}/{1}", ImageDirPath, fileName);
-                stTable.Append(String.Format("| {0} | [{1}]({2})\n", sticker.Id, sticker.Title == "" ? "(no title)" : sticker.Title, curFilePath));
+                string curFilePath = String.Format("{0}/{1}", ImageDirPath, fileName.Replace(" ", "%20"));
+                stTable.Append(String.Format("| {0} | [{1}]({2}) |\n", sticker.Id, sticker.Title == "" ? "(no title)" : sticker.Title, curFilePath));
             }
         }
 
@@ -34,6 +35,7 @@ namespace BiliStickers
                 var fs = new FileStream(ReadmeFilePath, FileMode.Create);
                 var sw = new StreamWriter(fs);
                 sw.Write(String.Format("\n{0}\n", MarkdownTitle));
+                sw.Write(TableHeader);
                 sw.Write(stTable.ToString());
                 sw.Flush();
                 sw.Close();
@@ -53,6 +55,7 @@ namespace BiliStickers
                 {
                     str = new StringBuilder(oldString);
                     str.Append(String.Format("\n{0}\n", MarkdownTitle));
+                    str.Append(TableHeader);
                     str.Append(stTable);
                 }
                 else
@@ -60,6 +63,7 @@ namespace BiliStickers
                     var tableEndPos = oldString.IndexOf("\n#", tablePos + MarkdownTitle.Length);
                     str = new StringBuilder(oldString.Substring(0, tablePos));
                     str.Append(String.Format("{0}\n", MarkdownTitle));
+                    str.Append(TableHeader);
                     str.Append(stTable);
                     if (tableEndPos != -1)
                         str.Append(oldString.Substring(tableEndPos +1));
