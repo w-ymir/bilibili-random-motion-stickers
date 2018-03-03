@@ -94,7 +94,9 @@ namespace BiliStickers
 
                     // Update Readme.
                     StickersTable stickersTable = new StickersTable();
+                    Console.WriteLine();
                     stickersTable.AddToReadme(ref stickers);
+                    Console.WriteLine();
                     break;
                 default:
                     Console.Error.WriteLine("Argument(s) not recognised.");

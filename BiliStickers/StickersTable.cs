@@ -8,6 +8,7 @@ namespace BiliStickers
     class StickersTable
     {
         const string ReadmeFilePath = "../README.md";
+        const string ImageDirPath = "gif";  // Note: It is different from BilibiliJson.ImageDirPath
         const string MarkdownTitle = "## Stickers";
 
         StringBuilder stTable = new StringBuilder("\n");
@@ -17,13 +18,15 @@ namespace BiliStickers
             foreach (var sticker in stickers)
             {
                 string fileName = String.Format("{0}-{1}{2}", sticker.Id, sticker.Title, sticker.Icon.Substring(sticker.Icon.LastIndexOf('.')));
-                string curFilePath = String.Format("{0}/{1}", BilibiliJson.ImageDirPath, fileName);
+                string curFilePath = String.Format("{0}/{1}", ImageDirPath, fileName);
                 stTable.Append(String.Format("| {0} | [{1}]({2})\n", sticker.Id, sticker.Title == "" ? "(no title)" : sticker.Title, curFilePath));
             }
         }
 
         public void AddToReadme(ref List<Sticker> stickers)
         {
+            Console.WriteLine("Start to update README.");
+
             StickersToTable(ref stickers);
 
             if (!File.Exists(ReadmeFilePath))
@@ -49,7 +52,7 @@ namespace BiliStickers
                 if (tablePos == -1)
                 {
                     str = new StringBuilder(oldString);
-                    str.Append(String.Format("{0}\n", MarkdownTitle));
+                    str.Append(String.Format("\n{0}\n", MarkdownTitle));
                     str.Append(stTable);
                 }
                 else
@@ -68,6 +71,8 @@ namespace BiliStickers
                 sw.Flush();
                 sw.Close();
                 fs.Close();
+
+                Console.WriteLine("README updated.");
             }
         }
     }
