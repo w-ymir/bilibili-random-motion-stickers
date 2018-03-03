@@ -1,4 +1,4 @@
 # bilibili-random-motion-stickers
 
 Fetch the random motion stickers on the right end of the nav bar of [Bilibili](https://www.bilibili.com/).  
-»ñÈ¡ Bilibili ÍøÕ¾µ¼º½À¸×îÓÒ²àµÄËæ»ú¶¯Í¼¡£
+è·å– Bilibili ç½‘ç«™å¯¼èˆªæ æœ€å³ä¾§çš„éšæœºåŠ¨å›¾ã€‚
