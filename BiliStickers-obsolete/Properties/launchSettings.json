@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "BiliStickers": {
+      "commandName": "Project",
+      "commandLineArgs": "--url",
+      "workingDirectory": "$(SolutionDir)"
+    }
+  }
+}
